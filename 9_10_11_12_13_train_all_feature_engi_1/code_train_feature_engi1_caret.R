@@ -1,12 +1,12 @@
 #Working Directory
-setwd("D:/FunXExcel Channel/17. Kaggle/GitHub/Kaggle_Titanic_R/4_5_6_7_8_train_all_numericals_categorical")
+setwd("D:/FunXExcel Channel/17. Kaggle/GitHub/Kaggle_Titanic_R/9_10_11_12_13_train_all_feature_engi_1")
 
 #Library for Random forest
 library(caret)
 
 #Import
-df_train <- read.csv("train_all_numericals_categorical.csv")
-df_test <- read.csv("test_all_numericals_categorical.csv")
+df_train <- read.csv("train_all_feature_engi_1.csv")
+df_test <- read.csv("test_all_feature_engi_1.csv")
 
 #Check train Dataset
 str(df_train)
@@ -77,7 +77,7 @@ importance <- varImp(model_avNNet, scale = FALSE)
 plot(importance)
 
 #Score using training dataset
-predict <- predict(rf)
+#predict <- predict(rf)
 
 #Check model performance - Ideally you need to do it on a cross validation test dataset dereived from train dataset
 #Does not apply for this model
@@ -94,11 +94,11 @@ solution_logistic <- data.frame(PassengerID = df_test$PassengerId, Survived = pr
 solution_knn <- data.frame(PassengerID = df_test$PassengerId, Survived = prediction_knn)
 solution_svm <- data.frame(PassengerID = df_test$PassengerId, Survived = prediction_svm)
 solution_rf <- data.frame(PassengerID = df_test$PassengerId, Survived = prediction_rf)
-solution_avNNet <- data.frame(PassengerID = df_test$PassengerId, Survived = prediction_avNNet)
+#solution_avNNet <- data.frame(PassengerID = df_test$PassengerId, Survived = prediction_avNNet) #Takes long time to run 
 
 #export to same folder as the input files
-write.csv(solution_logistic, "submission_caret_logistic.csv", row.names = F)
-write.csv(solution_knn, "submission_caret_knn.csv", row.names = F)
-write.csv(solution_svm, "submission_caret_svm.csv", row.names = F)
-write.csv(solution_rf, "submission_caret_rf.csv", row.names = F)
-write.csv(solution_avNNet, "submission_caret_avNNet.csv", row.names = F)
+write.csv(solution_logistic, "submission1_caret_logistic.csv", row.names = F)
+write.csv(solution_knn, "submission1_caret_knn.csv", row.names = F)
+write.csv(solution_svm, "submission1_caret_svm.csv", row.names = F)
+write.csv(solution_rf, "submission1_caret_rf.csv", row.names = F) #Best
+write.csv(solution_avNNet, "submission1_caret_avNNet.csv", row.names = F)
