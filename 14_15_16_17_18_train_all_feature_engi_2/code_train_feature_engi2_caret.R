@@ -43,10 +43,10 @@ set.seed(7)
 model_knn <- train(Survived ~ ., data = train, method = "knn")
 model_knn$results$Accuracy
 
-#Build model using SVM
+#Build model using Decision Tree
 set.seed(7)
-model_svm <- train(Survived ~ ., data = train, method = "svmRadial")
-model_svm$results$Accuracy
+model_dt <- train(Survived ~ ., data = train, method = "rpart")
+model_dt$results$Accuracy
 
 #Combine Accuracy Results of Models
 results <- resamples(list(Logit = model_logistic, KNN = model_knn, SVM = model_svm, RF = model_rf))
@@ -74,14 +74,14 @@ model_rf1$results$Accuracy
 #Score on test dataset
 #prediction_logistic <- predict(model_logistic, newdata = df_test)
 #prediction_knn <- predict(model_knn, newdata = df_test)
-#prediction_svm <- predict(model_svm, newdata = df_test)
+prediction_dt <- predict(model_dt, newdata = df_test)
 prediction_rf <- predict(model_rf, newdata = df_test)
 prediction_rf1 <- predict(model_rf1, newdata = df_test)
 
 #Prepare dataset as per Kaggle submission file
 #solution_logistic <- data.frame(PassengerID = df_test$PassengerId, Survived = prediction_logistic)
 #solution_knn <- data.frame(PassengerID = df_test$PassengerId, Survived = prediction_knn)
-#solution_svm <- data.frame(PassengerID = df_test$PassengerId, Survived = prediction_svm)
+solution_dt <- data.frame(PassengerID = df_test$PassengerId, Survived = prediction_dt)
 solution_rf <- data.frame(PassengerID = df_test$PassengerId, Survived = prediction_rf)
 solution_rf1 <- data.frame(PassengerID = df_test$PassengerId, Survived = prediction_rf1)
 
@@ -89,7 +89,7 @@ solution_rf1 <- data.frame(PassengerID = df_test$PassengerId, Survived = predict
 #export to same folder as the input files
 #write.csv(solution_logistic, "submission1_caret_logistic.csv", row.names = F)
 #write.csv(solution_knn, "submission1_caret_knn.csv", row.names = F)
-#write.csv(solution_svm, "submission1_caret_svm.csv", row.names = F)
+write.csv(solution_dt, "submission1_caret_dt.csv", row.names = F)
 write.csv(solution_rf, "submission1_caret_rf.csv", row.names = F) #Best
 write.csv(solution_rf1, "submission1_caret_rf_fin.csv", row.names = F) #Best
 
